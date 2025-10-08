@@ -1,0 +1,7 @@
+<!-- logo.svg -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <circle cx="50" cy="50" r="45" fill="none" stroke="#14b8a6" stroke-width="8" />
+  <path d="M50 10 A40 40 0 1 1 20 80" fill="none" stroke="#22c55e" stroke-width="8" stroke-linecap="round" />
+  <circle cx="50" cy="50" r="6" fill="#14b8a6" />
+  <text x="50%" y="93%" text-anchor="middle" fill="#0f766e" font-size="12" font-family="sans-serif" font-weight="bold">C</text>
+</svg>
