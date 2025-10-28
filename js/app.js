@@ -1,17 +1,19 @@
 // app.js
 document.getElementById('year').innerText = new Date().getFullYear();
 
-function switchView(id) {
-  document.querySelectorAll('main > section').forEach(sec => {
-    sec.classList.add('hidden');
-  });
-  document.getElementById(id).classList.remove('hidden');
+function switchView(viewId) {
+  document.querySelectorAll("section.view-card").forEach(v => v.classList.add("hidden"));
+  document.getElementById(viewId).classList.remove("hidden");
 
-  // Render relevant view
-  if (id === 'donor-view') renderDonor();
-  if (id === 'volunteer-view') renderVolunteer();
-  if (id === 'shelter-view') renderShelter();
+  if (viewId === "donor-view") {
+    renderDonorView();
+    // Delay to ensure DOM is visible
+    setTimeout(() => {
+      if (window.map) window.map.invalidateSize();
+    }, 100);
+  }
 }
+
 
 function mockLogin() {
   const role = document.getElementById('auth-role').value;
