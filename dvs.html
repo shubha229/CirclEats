@@ -11,23 +11,22 @@
   <!-- Leaflet -->
   <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
   <style>
     body { background: linear-gradient(135deg,#f0fdf4,#eff6ff); font-family:"Inter",sans-serif; }
-    .card { transition: transform .2s,box-shadow .2s; position:relative;}
+    .card { transition: transform .2s,box-shadow .2s; position:relative; }
     .card:hover { transform: translateY(-4px); box-shadow:0 6px 15px rgba(0,0,0,.1); }
     #map { height: 250px; border-radius: .75rem; }
     .collected { background-color:#bbf7d0 !important; border-left-color:#16a34a !important; }
     .expired { background-color:#fee2e2 !important; border-left-color:#dc2626 !important; }
-    .reserved { border-left-color:#facc15 !important; opacity:0.9;}
-    .reserved-label { position:absolute; top:10px; right:10px; background:#f59e0b; color:white; font-weight:bold; padding:2px 6px; border-radius:5px; font-size:0.75rem;}
+    .reserved { border-left-color:#facc15 !important; opacity:0.9; }
+    .reserved-label { position:absolute; top:10px; right:10px; background:#f59e0b; color:white; font-weight:bold; padding:2px 6px; border-radius:5px; font-size:0.75rem; }
   </style>
 
   <canvas id="bg-canvas" class="fixed top-0 left-0 w-full h-screen z-0 pointer-events-none"></canvas>
-
-  <link rel="stylesheet" href="css/styles.css">
-
   <meta name="theme-color" content="#0ea5a4" />
 </head>
+
 <body class="min-h-screen flex flex-col items-center py-8 px-4">
   <!-- Header -->
   <header class="bg-white shadow-sm sticky top-0 z-40 w-full">
@@ -40,8 +39,10 @@
       <div class="hidden md:flex gap-4">
         <button onclick="switchView('donor-view')" class="nav-btn">Donor</button>
         <button onclick="switchView('volunteer-view')" class="nav-btn">Volunteer</button>
-        <button onclick="switchView('shelter-view')" class="nav-btn">Shelter</button>
-        <!-- ✅ Modified here -->
+
+        <!-- ✅ Changed this: now goes to a separate page -->
+        <button onclick="goToShelter()" class="nav-btn">Shelter</button>
+
         <button onclick="goToProfile()" class="nav-btn">My Profile</button>
       </div>
 
@@ -54,11 +55,12 @@
     </nav>
   </header>
 
-
-  <!-- Views (Single Page App style) -->
+  <!-- Views -->
   <main id="app" class="flex p-4 justify-center">
+    <!-- Donor -->
     <section id="donor-view" class="w-full max-w-6xl flex flex-col gap-6">
       <h1 class="text-4xl font-extrabold text-green-700 text-center">Donor Dashboard</h1>
+
       <!-- Create Donation -->
       <div class="bg-white shadow-xl rounded-2xl p-6">
         <h2 class="text-2xl font-semibold text-green-600 mb-4">🧾 Create Donation</h2>
@@ -113,7 +115,7 @@
         <!-- Spinner -->
         <div id="loading" class="hidden mt-4 text-center">
           <div class="animate-spin rounded-full h-10 w-10 border-t-4 border-green-600 mx-auto mb-2"></div>
-            <p class="text-green-700 font-medium">Creating your listing...</p>
+          <p class="text-green-700 font-medium">Creating your listing...</p>
         </div>
       </div>
 
@@ -124,7 +126,6 @@
       </div>
     </section>
 
-
     <!-- Volunteer -->
     <section id="volunteer-view" class="view-card hidden">
       <h2 class="section-title">Volunteer Dashboard</h2>
@@ -132,67 +133,51 @@
     </section>
 
     <!-- Shelter -->
-    <section id="shelter-view" class="view-card hidden">
-      <h2 class="section-title">Shelter Dashboard</h2>
-      <div id="shelter-container"></div>
-    </section>
-
-    <!-- Admin -->
-    <section id="admin-view" class="view-card hidden">
-      <h2 class="section-title">Admin Dashboard</h2>
-      <p>Placeholder stats area</p>
-    </section>
+    <!-- This section can be removed if you are using a separate shelter.html -->
+    <section id="shelter-view" class="hidden"></section>
   </main>
 
   <footer class="w-full bg-white shadow-inner py-4 text-center text-xs text-gray-500 fixed bottom-0 left-0">
     © <span id="year"></span> CirclEats. All rights reserved.
   </footer>
 
-
-  <!-- JS files -->
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- JS Files -->
   <script src="js/utils.js"></script>
   <script src="js/lang.js"></script>
   <script src="js/donor.js"></script>
   <script src="js/volunteer.js"></script>
-  <script src="js/shelter.js"></script>
   <script src="js/app.js"></script>
   <script src="js/bg.js"></script>
 
   <script>
-    // Function to switch views
+    // Switch view for Donor/Volunteer only
     function switchView(viewId) {
-      // Hide all view sections
       document.querySelectorAll("section[id$='-view']").forEach((section) => {
         section.classList.add("hidden");
       });
-
-      // Show the selected view
       const activeSection = document.getElementById(viewId);
-      if (activeSection) {
-        activeSection.classList.remove("hidden");
-      }
+      if (activeSection) activeSection.classList.remove("hidden");
 
-      // Fix map display when donor-view is selected
       if (viewId === "donor-view" && window.map) {
-        setTimeout(() => {
-          window.map.invalidateSize();
-        }, 300);
+        setTimeout(() => window.map.invalidateSize(), 300);
       }
     }
 
-    // ✅ Added this function for My Profile redirection
+    // ✅ Redirect to Shelter Page
+    function goToShelter() {
+      window.location.href = "shelter.html";
+    }
+
+    // ✅ Redirect to Profile Page
     function goToProfile() {
       window.location.href = "user-dashboard.html";
     }
 
-    // Set current year in footer
+    // Footer year
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // By default, show Donor Dashboard only
-    window.addEventListener("DOMContentLoaded", () => {
-      switchView("donor-view");
-    });
+    // Default view
+    window.addEventListener("DOMContentLoaded", () => switchView("donor-view"));
   </script>
 </body>
 </html>

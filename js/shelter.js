@@ -1,35 +1,58 @@
-// shelter.js
-let claimed = [
-  { food: 'Rice Meal', qty: 40, status: 'Claimed' }
-];
-let coupons = [
-  { title: '10% off at Local Cafe', redeemed: false },
-  { title: 'Free Drink Coupon', redeemed: false }
-];
+// Initialize map
+const map = new ol.Map({
+  target: 'map',
+  layers: [
+    new ol.layer.Tile({
+      source: new ol.source.OSM(),
+    }),
+  ],
+  view: new ol.View({
+    center: ol.proj.fromLonLat([78.9629, 20.5937]), // India center
+    zoom: 5,
+  }),
+});
 
-function renderShelter() {
-  const c = document.getElementById('shelter-container');
-  c.innerHTML = `
-    <h3 class="font-semibold text-teal-700 mb-2">Claimed Food</h3>
-    <div id="claimed-list" class="space-y-2 mb-4"></div>
-    <h3 class="font-semibold text-teal-700 mb-2">Coupon Wallet</h3>
-    <div id="coupon-list" class="space-y-2"></div>
-  `;
-  renderClaimedAndCoupons();
+// Marker layer
+const markerLayer = new ol.layer.Vector({
+  source: new ol.source.Vector(),
+});
+map.addLayer(markerLayer);
+
+// Function to add marker
+function addMarker(lon, lat) {
+  markerLayer.getSource().clear();
+  const marker = new ol.Feature({
+    geometry: new ol.geom.Point(ol.proj.fromLonLat([lon, lat])),
+  });
+  const style = new ol.style.Style({
+    image: new ol.style.Icon({
+      src: 'https://cdn-icons-png.flaticon.com/512/684/684908.png',
+      scale: 0.05,
+    }),
+  });
+  marker.setStyle(style);
+  markerLayer.getSource().addFeature(marker);
 }
 
-function renderClaimedAndCoupons() {
-  document.getElementById('claimed-list').innerHTML = claimed.map(c=>
-    <div class="border p-2 rounded-lg">${c.food} — ${c.qty} servings (${c.status})</div>
-  ).join('');
-  document.getElementById('coupon-list').innerHTML = coupons.map(c=>
-    <div onclick="redeemCoupon('${c.title}')" class="border p-3 rounded-lg cursor-pointer hover:bg-green-50">${c.title}</div>
-  ).join('');
-}
+// Search & locate
+document.getElementById('searchBtn').addEventListener('click', () => {
+  const location = document.getElementById('locationInput').value.trim();
+  if (!location) return alert('Please enter a location');
 
-function redeemCoupon(title) {
-  showLoading();
-  const c = coupons.find(x => x.title === title);
-  if (c) c.redeemed = true;
-  setTimeout(()=>alert(${title} redeemed!), 1200);
-}
+  fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${location}`)
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.length === 0) {
+        alert('Location not found!');
+        return;
+      }
+      const { lon, lat } = data[0];
+      addMarker(lon, lat);
+      map.getView().animate({
+        center: ol.proj.fromLonLat([parseFloat(lon), parseFloat(lat)]),
+        zoom: 14,
+        duration: 1000,
+      });
+    })
+    .catch((err) => console.error(err));
+});
