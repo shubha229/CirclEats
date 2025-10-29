@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CircleEats — Dashboard</title>
+  <link rel="stylesheet" href="css/stylesofindex.css">
+</head>
+<body class="dashboard-page">
+  <header class="site-header small">
+    <div class="container header-inner">
+      <div class="brand">
+        <img src="assets/logo.webp" alt="CircleEats" class="logo-img"/>
+        <span class="brand-name">CircleEats</span>
+      </div>
+      <div class="nav">
+        <a href="index.html">Home</a>
+        <button id="logoutBtn" class="btn small">Logout</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="panel">
+      <div class="container dashboard-grid">
+        <aside class="sidebar">
+          <div id="welcomeBox" class="welcome-box"></div>
+          <div class="stats-tiles">
+            <div class="tile"><div class="tile-title">Donated</div><div id="statDonated" class="tile-value">₹0</div></div>
+            <div class="tile"><div class="tile-title">Deliveries</div><div id="statDeliveries" class="tile-value">0</div></div>
+            <div class="tile"><div class="tile-title">Shelters</div><div id="statShelters" class="tile-value">0</div></div>
+          </div>
+        </aside>
+
+        <section class="main-panel">
+          <div class="buttons-row center">
+            <button class="btn" data-target="activity">Activity</button>
+            <button class="btn" data-target="donations">Donations</button>
+            <button class="btn" data-target="volunteer">Volunteer</button>
+            <button class="btn" data-target="profile">Profile</button>
+          </div>
+
+          <div id="contentArea" class="content-area"></div>
+        </section>
+      </div>
+    </section>
+  </main>
+
+  <!-- scripts at the bottom -->
+  <script src="js/dashboard.js"></script>
+  <script src="js/auth.js"></script>
+
+  <script>
+    // Extra safety fallback: ensure logout works even if dashboard.js didn't bind
+    document.addEventListener("DOMContentLoaded", () => {
+      const logoutBtn = document.getElementById("logoutBtn");
+      if (logoutBtn) {
+        logoutBtn.addEventListener("click", () => {
+          localStorage.removeItem("loggedInUser");
+          window.location.href = "login.html";
+        });
+      }
+    });
+  </script>
+</body>
+</html>
