@@ -41,7 +41,8 @@
         <button onclick="switchView('donor-view')" class="nav-btn">Donor</button>
         <button onclick="switchView('volunteer-view')" class="nav-btn">Volunteer</button>
         <button onclick="switchView('shelter-view')" class="nav-btn">Shelter</button>
-        <button onclick="switchView('admin-view')" class="nav-btn">Admin</button>
+        <!-- ✅ Modified here -->
+        <button onclick="goToProfile()" class="nav-btn">My Profile</button>
       </div>
 
       <!-- Language selector -->
@@ -178,6 +179,11 @@
           window.map.invalidateSize();
         }, 300);
       }
+    }
+
+    // ✅ Added this function for My Profile redirection
+    function goToProfile() {
+      window.location.href = "user-dashboard.html";
     }
 
     // Set current year in footer
