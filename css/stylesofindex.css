@@ -1,0 +1,230 @@
+:root{
+  --bg: #f6fbff;
+  --card: #ffffff;
+  --accent: #0b8f6c;
+  --muted: #6b7280;
+  --shadow: 0 8px 22px rgba(12,20,30,0.08);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#f3f8ff 0%, #f6fbff 100%);
+  color:#0f1724;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  line-height:1.45;
+  scroll-behavior:smooth;
+}
+
+/* containers */
+.container{max-width:1100px;margin:0 auto;padding:28px;}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:12px;}
+.brand{display:flex;align-items:center;gap:10px}
+.logo-img{width:44px;height:44px}
+.logo-img-sm{width:44px;height:44px}
+.brand-name{font-weight:700;color:var(--accent);font-size:18px}
+
+/* header */
+.site-header{position:sticky;top:0;background:rgba(255,255,255,0.95);backdrop-filter:blur(6px);box-shadow:0 4px 12px rgba(12,20,30,0.03); z-index:30;padding:10px 0}
+.site-header.small{padding:10px 0}
+.nav a{margin-left:12px;text-decoration:none;color:#0f1724;font-weight:600}
+.btn{display:inline-block;padding:9px 14px;border-radius:10px;border:none;background:var(--card);cursor:pointer;text-decoration:none;color:#0f1724;box-shadow:0 6px 18px rgba(12,20,30,0.04);font-weight:600}
+.btn.small{padding:6px 10px;font-size:14px}
+.btn.primary{background:linear-gradient(180deg,var(--accent),#0a6f53);color:white;box-shadow:0 8px 24px rgba(11,143,108,0.12)}
+.btn.ghost{background:transparent;border:1px solid rgba(0,0,0,0.06)}
+.btn.big{padding:12px 22px;border-radius:16px}
+
+/* hero */
+/* Hero section background */
+.hero {
+  min-height: 100vh;  /* Ensures it covers at least the full viewport height */
+  display: flex;
+  align-items: center;
+  position: relative;
+  background-size: cover; /* Ensures the background covers the entire section */
+  background-position: center; /* Keeps the image centered */
+  background-attachment: fixed; /* Makes the background fixed when you scroll */
+  padding-top: 40px;
+}
+
+/* Background change when set by JS (will apply to the body as well) */
+body {
+  background-image: url('../assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* Fix background attachment for body */
+}
+
+
+.hero-overlay{
+  position:absolute;inset:0;background:linear-gradient(180deg, rgba(0,0,0,0.15), rgba(255,255,255,0.03));border-bottom:1px solid rgba(15,23,42,0.02)
+}
+.hero-inner{display:flex;gap:28px;align-items:center;justify-content:space-between;width:100%;position:relative}
+.hero-card{max-width:640px;background:linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0.72));padding:28px;border-radius:16px;box-shadow:var(--shadow);backdrop-filter:blur(4px);transform:translateY(0);animation:pop 600ms ease}
+@keyframes pop{from{opacity:0;transform:translateY(12px)} to{opacity:1; transform:translateY(0)}}
+.hero-card h1{font-size:34px;margin:0;color:#04462f}
+.lead{color:var(--muted);margin-top:8px}
+.cta-row{margin-top:14px;display:flex;gap:12px;align-items:center}
+.hero-illu img{max-width:340px;border-radius:12px;box-shadow:var(--shadow)}
+
+/* panels */
+.panel{padding:48px 0}
+.panel.alt{background:linear-gradient(180deg,#fff,#fbfdff)}
+.grid-3{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px}
+.card{background:var(--card);padding:18px;border-radius:12px;box-shadow:var(--shadow);text-align:left}
+.card .icon{font-size:26px;margin-bottom:8px}
+
+/* impact */
+.center{text-align:center}
+.impact-stats{display:flex;gap:20px;justify-content:center;margin-top:18px}
+.impact-stats div{background:rgba(11,143,108,0.06);padding:18px;border-radius:12px;min-width:160px}
+.impact-stats span{display:block;font-size:22px;font-weight:700;color:var(--accent)}
+
+/* auth */
+.auth-page{display:flex;align-items:center;justify-content:center;min-height:80vh;padding:20px}
+.auth-wrapper{display:flex;gap:18px;flex-wrap:wrap;justify-content:center}
+.auth-card{background:var(--card);padding:20px;border-radius:12px;min-width:300px;box-shadow:var(--shadow)}
+.auth-card.alt{min-width:320px}
+.auth-card h2,h3{margin-top:0}
+.auth-card label{display:block;margin-top:10px;color:var(--muted);font-size:13px}
+.auth-card input, .auth-card select{width:100%;padding:10px;border-radius:8px;border:1px solid #e6eef6;margin-top:6px}
+
+/* dashboard */
+.dashboard-grid{display:grid;grid-template-columns:280px 1fr;gap:20px;align-items:start}
+.sidebar{position:sticky;top:88px}
+.welcome-box{background:linear-gradient(180deg,#ffffff,#f2fffa);padding:20px;border-radius:12px;box-shadow:var(--shadow);text-align:center}
+.welcome-box h3{margin:0 0 6px 0}
+.stats-tiles{display:grid;grid-template-columns:1fr;gap:12px;margin-top:16px}
+.tile{background:var(--card);padding:12px;border-radius:10px;box-shadow:var(--shadow);text-align:center}
+.tile-title{font-size:12px;color:var(--muted)}
+.tile-value{font-size:20px;font-weight:700;margin-top:6px}
+.buttons-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+.content-area{background:var(--card);padding:18px;border-radius:12px;box-shadow:var(--shadow);min-height:220px}
+
+/* small helpers */
+.muted{color:var(--muted);font-size:13px}
+.row-between{display:flex;justify-content:space-between;align-items:center;margin-top:12px}
+.link{color:var(--accent);text-decoration:underline;cursor:pointer}
+
+/* responsive */
+@media (max-width:900px){
+  .dashboard-grid{grid-template-columns:1fr;padding:16px}
+  .hero-inner{flex-direction:column-reverse;align-items:center;text-align:center}
+  .hero-illu img{max-width:260px}
+  .impact-stats{flex-direction:column;gap:12px}
+}
+/* Global background for all pages */
+body {
+  background-image: url('../assets/background.jpg'); /* your chosen image */
+  background-size: cover;      /* cover entire viewport */
+  background-position: center; /* center the image */
+  background-repeat: no-repeat;
+  background-attachment: fixed; /* optional: stay fixed when scrolling */
+}
+.join-us {
+  background-color: #f8f9fa; /* light background behind image & text */
+  padding: 60px 20px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 30px;
+}
+
+.join-us-img {
+  max-width: 400px;
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.join-us-text h2 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+.join-us-text p {
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+}
+
+.join-us-text .btn {
+  font-size: 1rem;
+  padding: 10px 25px;
+}
+
+/* --- Header adjustments for bigger logo & app name --- */
+.brand .logo-img {
+  width: 80px;      /* increased from 44px */
+  height: auto;
+}
+
+.brand .logo-img-sm {
+  width: 60px;      /* small variant for login/auth pages */
+  height: auto;
+}
+
+.brand-name {
+  font-size: 2.2rem;  /* increased from 18px */
+  font-weight: 700;
+  color: var(--accent);
+  margin-left: 12px;  /* space between logo and name */
+}
+
+.site-header {
+  padding: 20px 0;   /* taller header */
+}
+.site-header.small {
+  padding: 15px 0;   /* small variant padding */
+}
+
+/* About Us text adjustments */
+/* About Us section text */
+#about p.muted {
+  font-size: 1.15rem;     /* slightly bigger than default */
+  line-height: 1.8;       /* improves readability */
+  color: var(--muted);     /* keep the muted color */
+}
+
+#about h2 {
+  font-size: 2rem;        /* bigger heading */
+  margin-bottom: 12px;
+}
+/* How It Works subtitle */
+#how p.muted {
+  font-size: 1.15rem;    /* slightly bigger than default */
+  line-height: 1.7;      /* improves readability */
+  text-align: center;     /* keep it centered */
+  margin-bottom: 30px;    /* spacing from cards */
+}
+/* ✅ Universal background fix */
+body {
+  background-image: url('../assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.auth-page {
+  background: linear-gradient(to right, #a8edea, #fed6e3);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-card {
+  background: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  width: 350px;
+}
+body {
+  background: url("../assets/background.jpg") no-repeat center center fixed;
+  background-size: cover;
+}
