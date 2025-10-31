@@ -28,7 +28,7 @@
 </head>
 
 <body class="min-h-screen flex flex-col items-center py-8 px-4">
-  <!-- Header -->
+  <!-- ✅ Header -->
   <header class="bg-white shadow-sm sticky top-0 z-40 w-full">
     <nav class="w-full px-6 py-3 flex justify-between items-center">
       <div class="flex items-center gap-2">
@@ -38,11 +38,8 @@
 
       <div class="hidden md:flex gap-4">
         <button onclick="switchView('donor-view')" class="nav-btn">Donor</button>
-        <button onclick="switchView('volunteer-view')" class="nav-btn">Volunteer</button>
-
-        <!-- ✅ Changed this: now goes to a separate page -->
+        <button onclick="goToVolunteer()" class="nav-btn">Volunteer</button>
         <button onclick="goToShelter()" class="nav-btn">Shelter</button>
-
         <button onclick="goToProfile()" class="nav-btn">My Profile</button>
       </div>
 
@@ -55,7 +52,7 @@
     </nav>
   </header>
 
-  <!-- Views -->
+  <!-- ✅ Main Content -->
   <main id="app" class="flex p-4 justify-center">
     <!-- Donor -->
     <section id="donor-view" class="w-full max-w-6xl flex flex-col gap-6">
@@ -126,17 +123,17 @@
       </div>
     </section>
 
-    <!-- Volunteer -->
+    <!-- Volunteer (hidden here, now separate page) -->
     <section id="volunteer-view" class="view-card hidden">
       <h2 class="section-title">Volunteer Dashboard</h2>
       <div id="volunteer-container"></div>
     </section>
 
-    <!-- Shelter -->
-    <!-- This section can be removed if you are using a separate shelter.html -->
+    <!-- Shelter (can remain empty if using separate page) -->
     <section id="shelter-view" class="hidden"></section>
   </main>
 
+  <!-- ✅ Footer -->
   <footer class="w-full bg-white shadow-inner py-4 text-center text-xs text-gray-500 fixed bottom-0 left-0">
     © <span id="year"></span> CirclEats. All rights reserved.
   </footer>
@@ -149,8 +146,9 @@
   <script src="js/app.js"></script>
   <script src="js/bg.js"></script>
 
+  <!-- ✅ Redirect + View Logic -->
   <script>
-    // Switch view for Donor/Volunteer only
+    // Switch view for Donor (same page)
     function switchView(viewId) {
       document.querySelectorAll("section[id$='-view']").forEach((section) => {
         section.classList.add("hidden");
@@ -161,6 +159,11 @@
       if (viewId === "donor-view" && window.map) {
         setTimeout(() => window.map.invalidateSize(), 300);
       }
+    }
+
+    // ✅ Redirect to Volunteer Page
+    function goToVolunteer() {
+      window.location.href = "volunteer.html";
     }
 
     // ✅ Redirect to Shelter Page
