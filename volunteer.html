@@ -4,12 +4,58 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Volunteer Dashboard</title>
-  <link rel="stylesheet" href="css\styleofvolunteer.css" />
+  <link rel="stylesheet" href="css/styleofvolunteer.css" />
 
-  <!-- ✅ OpenLayers CSS -->
+  <!-- OpenLayers CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/ol@v9.1.0/ol.css" />
+
+  <style>
+    /* ✅ Navigation Bar */
+    nav {
+      background-color: #0d9488; /* teal-600 */
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      padding: 14px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    nav .nav-btn {
+      color: white;
+      background: none;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+    }
+    nav .nav-btn:hover {
+      color: #facc15; /* yellow-400 */
+    }
+    nav .active {
+      color: #facc15;
+      text-decoration: underline;
+    }
+
+    body {
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(135deg, #f0fdf4, #eff6ff);
+    }
+  </style>
 </head>
 <body>
+
+  <!-- ✅ Navigation Bar -->
+  <nav>
+    <button class="nav-btn" onclick="goToDonor()">Donor</button>
+    <button class="nav-btn active" onclick="goToVolunteer()">Volunteer</button>
+    <button class="nav-btn" onclick="goToShelter()">Shelter</button>
+    <button class="nav-btn" onclick="goToProfile()">My Profile</button>
+  </nav>
+
   <!-- Header -->
   <div class="dashboard-header">
     <div class="header-content">
@@ -69,11 +115,28 @@
 
   <!-- Footer -->
   <footer>
-    © 2025 Food Waste Management System | Built with 💚 by Team CircEats
+    © 2025 Food Waste Management System | Built with 💚 by Team CirclEats
   </footer>
 
-  <!-- ✅ OpenLayers JS -->
+  <!-- OpenLayers JS -->
   <script src="https://cdn.jsdelivr.net/npm/ol@v9.1.0/dist/ol.js"></script>
-  <script src="js\volunteer.js"></script>
+  <script src="js/volunteer.js"></script>
+
+  <!-- ✅ Navigation Redirect Functions -->
+  <script>
+    function goToDonor() {
+      window.location.href = "dvs.html"; // your donor page filename
+    }
+    function goToVolunteer() {
+      window.location.href = "volunteer.html";
+    }
+    function goToShelter() {
+      window.location.href = "shelter.html";
+    }
+    function goToProfile() {
+      window.location.href = "user-dashboard.html";
+    }
+  </script>
+
 </body>
 </html>
